@@ -2,28 +2,28 @@ import React, { Component } from 'react'
 import { Input, Menu, Button } from 'semantic-ui-react'
 
 
-export default class MenuExamplePointing extends Component {
-    state = { activeItem: 'home' }
-
-    handleItemClick = (e, { name }) => this.setState({ activeItem: name })
-
+class NavMenu extends Component {
     render() {
-        const { activeItem } = this.state
         return (
             <Menu  >
-                <Menu.Item className="item-one" name='login' 
-                        active={activeItem === 'login'} 
-                        onClick={this.handleItemClick} />
-                    <Menu.Item
-                        name='search'
-                        active={activeItem === 'search'}
-                        onClick={this.handleItemClick} />
-                    <Menu.Item
-                        name='favorites'
-                        active={activeItem === 'favorites'}
-                        onClick={this.handleItemClick}/>
+                <Menu.Item>
+                    <Button
+                        onClick={ (e) => this.props.showLogin(e) } >
+                        Login
+                        </Button>
+                </Menu.Item>
                     <Menu.Item>
+                        <Button
+                        onClick={(e) => this.props.viewFavorites(e)} >
+                        Favorites
+                        </Button>
                     </Menu.Item>
+                <Menu.Item>
+                    <Button
+                        onClick={(e) => this.props.goHome(e)} >
+                        Home
+                        </Button>
+                </Menu.Item>
                     <Menu.Item>
                         <Input 
                         icon='search' 
@@ -40,3 +40,4 @@ export default class MenuExamplePointing extends Component {
         )
     }
 }
+export default NavMenu
