@@ -1,44 +1,59 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import { Card, Button } from 'semantic-ui-react'
-
+import SearchResults from "./components/SearchResults"
+import Menu from './components/Menu'
+import ArticleDetails from './components/ArticleDetails'
 
 const key = "mn3dtRxwdGYGdziMyPqLiOgfsQ08gwAb"	
 const mostViewed = `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=${key}`
 
 class App extends Component {
   state = {
-    articles: []
+    articles: [],
+    showDetail: false,
+    selectedArticle: null
   }
   componentDidMount = () => {
-    fetch(mostViewed).then(res => res.json()).then(data => 
+    
+  }
+  
+  loadNews = (e) => {
+    fetch(mostViewed).then(res => res.json()).then(data =>
       this.setState({
-        articles: data
+        articles: data.results
       }))
   }
 
-  articleCard = () => (
-    <Card>
-      <a className="embedly-card"
-        href="https://www.nytimes.com/interactive/2019/02/27/us/politics/michael-cohen-testimony.html">
-        Michael D. Cohen's Congressional Testimony</a>
-        <Button>
-          Add To Favorites
-        </Button>
-        
+  showDetail = (e, selected) => {
+    console.log('showDetail', e, selected)
+    this.setState({
+      showDetail: !this.state.showDetail
+    })
+    this.setState({
+      selectedArticle: selected
+    })
+  }
 
-    </Card>
+  renderDetails = () => (
+    <ArticleDetails article={this.state.selectedArticle} />
   )
+
 
   render() {
     return (
       <div className="App">
-        {this.articleCard()}
-        {this.articleCard()}
+          <Menu
+          loadNews={this.loadNews}/>
+          {this.state.showDetail ? this.renderDetails() : 
+          <SearchResults 
+          showDetail={this.showDetail} 
+         articles={this.state.articles} /> }
       </div>
     );
   }
 }
 
 export default App;
+
+
+  
