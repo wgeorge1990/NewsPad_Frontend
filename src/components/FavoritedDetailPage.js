@@ -4,8 +4,7 @@ import { GridColumn, Divider, Segment, Grid, Menu, Form, TextArea, MenuItem } fr
 class ArticleAndPad extends React.Component {
     render(){
         return(
-            <Segment padded>
-
+            <div padded>
                 <Grid columns={2} relaxed='very'>
                     <GridColumn>
                         <iframe
@@ -31,7 +30,7 @@ class ArticleAndPad extends React.Component {
 
                 <Divider vertical hidden></Divider>
 
-            </Segment>
+            </div>
         )
     }
 }

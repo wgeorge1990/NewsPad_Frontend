@@ -1,16 +1,22 @@
 import React, { Component } from 'react'
 import { Input, Menu, Button, Icon, MenuHeader } from 'semantic-ui-react'
+import { black } from 'ansi-colors';
 
 
 
 class NavMenu extends Component {
     render() {
         return (
-            <Menu fluid size="huge">
-                    <Menu.Item 
-                        onClick={ (e) => this.props.showLogin(e) } >
-                        Login 
-                    </Menu.Item>
+            <Menu  size="huge">
+                <Menu.Item onClick={(e) => this.props.showLogin(e)}>
+                    <Button animated>
+                    <Button.Content visible>Login</Button.Content>
+                    <Button.Content hidden>
+                        <Icon name='user'/>
+                    </Button.Content>
+                    </Button>
+                </Menu.Item>
+
                     <Menu.Item
                         onClick={(e) => this.props.viewFavorites(e)} >
                         Favorites
@@ -20,9 +26,6 @@ class NavMenu extends Component {
                         onClick={(e) => this.props.goHome(e)} >
                         Home
                     </Menu.Item>
-                    <MenuHeader>
-                        
-                    </MenuHeader>
                     <Menu.Item position="right">
                         <Input 
                         icon='search' 
@@ -34,6 +37,8 @@ class NavMenu extends Component {
                         Load News
                     </Menu.Item>
                 </Menu>
+            
+            
         )
     }
 }

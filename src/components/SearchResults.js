@@ -18,7 +18,7 @@ class SearchResults extends Component {
        
             return (
             
-                    <Segment fluid >
+                    <div>
                     <Card.Group centered itemsPerRow={5}>
                         {renderGroup.map(article => 
                         <ArticleCard 
@@ -26,7 +26,7 @@ class SearchResults extends Component {
                             article={article} 
                             showDetail={showDetail}/>)}
                     </Card.Group>
-                    </Segment>
+                    </div>
               
                 
             )

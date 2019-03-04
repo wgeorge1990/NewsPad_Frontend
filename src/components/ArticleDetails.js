@@ -3,11 +3,11 @@ import { Container, Button, Menu, Embed, Segment, MenuItem} from 'semantic-ui-re
 
 const ArticleDetails = (props) => {
    return (
-    <Segment fluid>
-        
-        <Menu compact center>
-            <MenuItem>
-            <Button
+    <div >
+           <Menu >
+            <MenuItem >
+            <Button 
+            center
             color={'green'}
             fluid
             onClick={(e)=> props.pinArticle(e, props.article)}
@@ -24,18 +24,16 @@ const ArticleDetails = (props) => {
             </MenuItem>
         </Menu>
            <iframe
-                fluid
                src={props.article.url}
-               width="2000"
-               height="1000"
+               width="100%"
+               height="650"
                scrolling="yes"
                allowtransparency="true"
                border='false' 
             />
-           <Menu compact center>
+           <Menu >
                <MenuItem>
                    <Button
-                        
                        fluid
                        onClick={(e) => props.pinArticle(e, props.article)}
                    >PIN ARTICLE TO FAVORITES
@@ -50,13 +48,8 @@ const ArticleDetails = (props) => {
             </Button>
                </MenuItem>
                </Menu>
-         
-       </Segment>
-      
-      
-
+           </div>
    )
-    
 }
 
 export default ArticleDetails

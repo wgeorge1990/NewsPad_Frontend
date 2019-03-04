@@ -1,13 +1,14 @@
 import React from 'react';
 import { Form, Button, Menu, Container, FormButton, GridColumn, Grid, Segment } from 'semantic-ui-react';
+import { stripColor } from 'ansi-colors';
 
 class Login extends React.Component {
     render(){
         return(
-            <Segment style={{textAlign: 'center'}}>
+            <div style={{textAlign: 'center'}}>
                 <Form >
                     <Form.Field 
-                        style={{ display: 'inline-block'}}
+                        style={{ display: 'inline-block' }}
                         width={2} >
                         <label> Username </label>
                         <input placeholder='Username'/>
@@ -23,7 +24,7 @@ class Login extends React.Component {
                     <FormButton onClick={null}> SignUp for NewsPad
                     </FormButton>
                 </Form>
-            </Segment>
+            </div>
                 
         )
     }
