@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Container } from 'semantic-ui-react'
 import SearchResults from "./components/SearchResults"
 import Menu from './components/Menu'
 import ArticleDetails from './components/ArticleDetails'
@@ -43,7 +42,6 @@ class App extends Component {
         articles: data.results
       }))
   }
-
 
   showDetail = (e, selected) => {
     console.log('showDetail', e, selected)
@@ -124,13 +122,19 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.state.currentUser)
     return (
       <div className="App">
-       
-        <Menu showLogin={this.showLogin} goHome={this.homeButton} viewFavorites={this.viewFavorites} loadNews={this.loadNews}/>
-        <SignUpForm setCurrentUser={this.setCurrentUser}/>
+        <Menu 
+        showLogin={this.showLogin} 
+        goHome={this.homeButton} 
+        viewFavorites={this.viewFavorites} 
+        loadNews={this.loadNews} />
+        
+        {this.state.currentUser === null ? 
+        <SignUpForm setCurrentUser={this.setCurrentUser}/> : null}
         {this.state.showFavDetail ? <NewsPad article={this.state.selectedFavDetail} /> : null}
-        {this.state.showLogin ? <Login /> : null}
+        {this.state.showLogin ? <Login setCurrentUser={this.setCurrentUser}/> : null}
         {this.state.showDetail ? <ArticleDetails article={this.state.selectedArticle} pinArticle={this.pinArticle} goBackToSearch={this.goBackToSearch} /> : null}
         {this.state.showHome ? <SearchResults  showDetail={this.showDetail} articles={this.state.articles} /> : null}
         {this.state.showFavorites ? <Favorites showDetail={this.showPadDetail} favorites={this.state.favorites}/> : null}
