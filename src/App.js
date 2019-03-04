@@ -6,6 +6,7 @@ import ArticleDetails from './components/ArticleDetails'
 import Favorites from './components/Favorites'
 import Login from './components/Login'
 import NewsPad from './components/FavoritedDetailPage'
+import SignUpForm from './components/SingUpForm'
 
 
 const key = "mn3dtRxwdGYGdziMyPqLiOgfsQ08gwAb"	
@@ -21,7 +22,15 @@ class App extends Component {
     showHome: false,
     showLogin: true,
     showFavDetail: false,
-    selectedFavDetail: null
+    selectedFavDetail: null,
+    currentUser: null
+  }
+
+  setCurrentUser = (user) => {
+    console.log("set Current user", user)
+    this.setState({
+      currentUser: user
+    })
   }
 
   componentDidMount = () => {
@@ -117,7 +126,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+       
         <Menu showLogin={this.showLogin} goHome={this.homeButton} viewFavorites={this.viewFavorites} loadNews={this.loadNews}/>
+        <SignUpForm setCurrentUser={this.setCurrentUser}/>
         {this.state.showFavDetail ? <NewsPad article={this.state.selectedFavDetail} /> : null}
         {this.state.showLogin ? <Login /> : null}
         {this.state.showDetail ? <ArticleDetails article={this.state.selectedArticle} pinArticle={this.pinArticle} goBackToSearch={this.goBackToSearch} /> : null}
