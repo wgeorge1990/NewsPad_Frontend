@@ -62,11 +62,33 @@ class App extends Component {
   )
 
   pinArticle = (e, article) => {
-    console.log('pin article', e, article)
+    console.log('pin article', e, article, )
     this.setState({
       favorites: this.state.favorites.concat(article)
     })
+    this.saveFavorite()
   }
+    
+
+    saveFavorite = () => {
+      console.log("saveFavorite", this.state.selectedArticle.title)
+      let body = JSON.stringify({
+        favorite: {
+          title: this.state.selectedArticle.title,
+          url: this.state.selectedArticle.url,
+          image_url: this.state.selectedArticle.media[0]['media-metadata'][2].url,
+          user_id: this.state.currentUser.id
+        }
+      })
+      fetch('http://localhost:3000/users/2/favorites', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: body,
+      }).then(response => response.json()).then(data => console.log(data))
+    }
+    
 
   homeButton = () => {
     this.setState({
