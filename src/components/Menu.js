@@ -1,40 +1,37 @@
 import React, { Component } from 'react'
-import { Input, Menu, Button } from 'semantic-ui-react'
+import { Input, Menu, Button, Icon, MenuHeader } from 'semantic-ui-react'
+
 
 
 class NavMenu extends Component {
     render() {
         return (
-            <Menu  >
-                <Menu.Item>
-                    <Button
+            <Menu fluid size="huge">
+                    <Menu.Item 
                         onClick={ (e) => this.props.showLogin(e) } >
-                        Login
-                        </Button>
-                </Menu.Item>
-                    <Menu.Item>
-                        <Button
+                        Login 
+                    </Menu.Item>
+                    <Menu.Item
                         onClick={(e) => this.props.viewFavorites(e)} >
                         Favorites
-                        </Button>
+                       
                     </Menu.Item>
-                <Menu.Item>
-                    <Button
+                    <Menu.Item
                         onClick={(e) => this.props.goHome(e)} >
                         Home
-                        </Button>
-                </Menu.Item>
-                    <Menu.Item>
+                    </Menu.Item>
+                    <MenuHeader>
+                        
+                    </MenuHeader>
+                    <Menu.Item position="right">
                         <Input 
                         icon='search' 
                         placeholder='Search...' />
                     </Menu.Item>
-                    <Menu.Item>
-                        <Button
+                    <Menu.Item
                         name='Search Articles' 
                         onClick={(e) => this.props.loadNews(e)}>
                         Load News
-                        </Button>
                     </Menu.Item>
                 </Menu>
         )

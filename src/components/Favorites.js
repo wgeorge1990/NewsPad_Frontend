@@ -7,7 +7,7 @@ class Favorites extends Component {
     render() {
         return(
             <div >
-                <h1 style={{position: 'center'}}>Pinned Articles</h1>
+                <h1 style={{textAlign: 'center'}}>Pinned Articles</h1>
                 <Card.Group centered itemsPerRow={5}>
                     {this.props.favorites.map(article =>
                         <ArticleCard 

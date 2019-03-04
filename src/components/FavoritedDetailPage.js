@@ -1,10 +1,11 @@
 import React from 'react';
-import { GridColumn, Divider, Segment, Grid, Input, Form } from "semantic-ui-react";
+import { GridColumn, Divider, Segment, Grid, Menu, Form, TextArea, MenuItem } from "semantic-ui-react";
 
 class ArticleAndPad extends React.Component {
     render(){
         return(
-            <Segment>
+            <Segment padded>
+
                 <Grid columns={2} relaxed='very'>
                     <GridColumn>
                         <iframe
@@ -14,11 +15,22 @@ class ArticleAndPad extends React.Component {
                             scrolling="yes"
                             allowtransparency="true" />
                     </GridColumn>
-                    <GridColumn>
-                        <Form.Input />
+                    <GridColumn textAlign="center">
+
+                       <Form>
+                        <TextArea placeholder="Write your notes here and do not forget to press save"
+                                autoHeight
+                                row={4}/>
+                        </Form>
+                        <Menu compact center>
+                            <MenuItem center>Save Notes</MenuItem>
+                            <MenuItem center>Reset</MenuItem>
+                        </Menu>
                     </GridColumn>
                 </Grid>
-                <Divider vertical></Divider>
+
+                <Divider vertical hidden></Divider>
+
             </Segment>
         )
     }

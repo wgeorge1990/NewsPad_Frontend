@@ -117,7 +117,6 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-
         <Menu showLogin={this.showLogin} goHome={this.homeButton} viewFavorites={this.viewFavorites} loadNews={this.loadNews}/>
         {this.state.showFavDetail ? <NewsPad article={this.state.selectedFavDetail} /> : null}
         {this.state.showLogin ? <Login /> : null}

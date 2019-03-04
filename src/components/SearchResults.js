@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ArticleCard from "./ArticleCard";
-import { Container, Card, Grid } from 'semantic-ui-react';
+import { Container, Card, Grid, Segment } from 'semantic-ui-react';
 import _ from 'lodash';
 
 class SearchResults extends Component { 
@@ -17,7 +17,8 @@ class SearchResults extends Component {
         const renderGroup = _.slice(articles, this.state.renderA, this.state.renderInc + 100)
        
             return (
-                <div >
+            
+                    <Segment fluid >
                     <Card.Group centered itemsPerRow={5}>
                         {renderGroup.map(article => 
                         <ArticleCard 
@@ -25,7 +26,9 @@ class SearchResults extends Component {
                             article={article} 
                             showDetail={showDetail}/>)}
                     </Card.Group>
-                </div>
+                    </Segment>
+              
+                
             )
     }
 
