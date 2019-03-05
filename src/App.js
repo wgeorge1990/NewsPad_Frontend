@@ -72,15 +72,13 @@ class App extends Component {
 
     saveFavorite = () => {
       console.log("saveFavorite", this.state.selectedArticle.title)
-      let body = JSON.stringify({
-        favorite: {
-          title: this.state.selectedArticle.title,
-          url: this.state.selectedArticle.url,
-          image_url: this.state.selectedArticle.media[0]['media-metadata'][2].url,
-          user_id: this.state.currentUser.id
-        }
-      })
-      fetch('http://localhost:3000/users/2/favorites', {
+      const favPost = 
+        {title: this.state.selectedArticle.title,
+        url: this.state.selectedArticle.url,
+        image_url: this.state.selectedArticle.media[0]['media-metadata'][2].url,
+        user_id: this.state.currentUser.id}
+      let body = JSON.stringify(favPost)
+      fetch('http://localhost:3000/users/1/favorites', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -92,12 +90,8 @@ class App extends Component {
 
   homeButton = () => {
     this.setState({
-      showDetail: false
-    })
-    this.setState({
-      showFavorites: false
-    })
-    this.setState({
+      showDetail: false,
+      showFavorites: false,
       showHome: true
     })
   }
@@ -144,7 +138,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.currentUser)
     return (
       <div className="App">
         <Menu 
@@ -152,11 +145,8 @@ class App extends Component {
         goHome={this.homeButton} 
         viewFavorites={this.viewFavorites} 
         loadNews={this.loadNews} />
-        
-        {this.state.currentUser === null ? 
-        <SignUpForm setCurrentUser={this.setCurrentUser}/> : null}
         {this.state.showFavDetail ? <NewsPad article={this.state.selectedFavDetail} /> : null}
-        {this.state.showLogin ? <Login setCurrentUser={this.setCurrentUser}/> : null}
+        {this.state.showLogin ? <Login showHome={this.homeButton} showLogin={this.showLogin} setCurrentUser={this.setCurrentUser}/> : null}
         {this.state.showDetail ? <ArticleDetails article={this.state.selectedArticle} pinArticle={this.pinArticle} goBackToSearch={this.goBackToSearch} /> : null}
         {this.state.showHome ? <SearchResults  showDetail={this.showDetail} articles={this.state.articles} /> : null}
         {this.state.showFavorites ? <Favorites showDetail={this.showPadDetail} favorites={this.state.favorites}/> : null}
@@ -166,3 +156,8 @@ class App extends Component {
 }
 
 export default App;
+
+// {
+//   this.state.currentUser === null ?
+//   <SignUpForm setCurrentUser={this.setCurrentUser} /> : null
+// }

@@ -16,8 +16,9 @@ class Login extends React.Component {
     handleLogin = (e) => {
       let file = this.state.searchData
       file = file.filter(user => user.password.includes(this.state.password) && user.user_name.includes(this.state.username))
-      console.log(file);
         this.props.setCurrentUser(file);
+        this.props.showLogin();
+        this.props.showHome()
      }
 
     handleOnChange = (e) => {
