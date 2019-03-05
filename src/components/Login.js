@@ -14,18 +14,17 @@ class Login extends React.Component {
             }))
     }
     handleLogin = (e) => {
-      let file = this.state.searchData
-      file = file.filter(user => user.password.includes(this.state.password) && user.user_name.includes(this.state.username))
+        e.preventDefault();
+        let file = this.state.searchData
+        file = file.filter(user => user.password.includes(this.state.password) && user.user_name.includes(this.state.username))
         this.props.setCurrentUser(file);
         this.props.showLogin();
         this.props.showHome()
      }
 
     handleOnChange = (e) => {
-        this.setState({
-            [e.target.name]: e.target.value
-        })
-    }
+        e.preventDefault();
+        this.setState({ [e.target.name]: e.target.value }) }
 
     render(){
         return(
@@ -56,12 +55,7 @@ class Login extends React.Component {
                     </FormButton>
                 </Form>
             </div>
-                
         )
     }
 }
 export default Login
-
-    // < GridColumn >
-    //  </GridColumn >
-    //      <Grid columns={3} relaxed='very'>

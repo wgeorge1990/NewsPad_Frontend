@@ -39,7 +39,7 @@ class ArticleDetails extends React.Component {
                         <Button
                             fluid
                             onClick={(e) => this.props.pinArticle(e, this.props.article)}
-                        >PIN ARTICLE TO FAVORITES
+                    >PIN ARTICLE TO FAVORITES
             </Button>
                     </MenuItem>
                     <MenuItem>

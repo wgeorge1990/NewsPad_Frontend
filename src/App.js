@@ -4,7 +4,7 @@ import Menu from './components/Menu'
 import ArticleDetails from './components/ArticleDetails'
 import Favorites from './components/Favorites'
 import Login from './components/Login'
-import NewsPad from './components/FavoritedDetailPage'
+import FavoritedDetail from './components/FavoritedDetailPage'
 import SignUpForm from './components/SingUpForm'
 
 
@@ -22,11 +22,11 @@ class App extends Component {
     showLogin: true,
     showFavDetail: false,
     selectedFavDetail: null,
-    currentUser: null
+    currentUser: null,
+    comments: []
   }
 
   setCurrentUser = (user) => {
-    console.log("set Current user", user)
     this.setState({
       currentUser: user
     })
@@ -34,7 +34,47 @@ class App extends Component {
 
   componentDidMount = () => {
     this.loadNews()
+    this.fetchComments()
   }
+
+  fetchFavorites = () => {
+    fetch(`http://localhost:3000/users/2/favorites`)
+      .then(res => res.json())
+      .then(data =>
+        this.setState({
+          favorites: data
+        }))
+  }
+
+  fetchComments = () => {
+    fetch(`http://localhost:3000/users/2/favorites/2/comments`)
+      .then(res => res.json())
+      .then(data => this.setState({
+        comments: data
+      }))
+  }
+
+  saveFavorite = () => {
+   
+    console.log("saveFavorite", this.state.selectedArticle.title)
+    const id = this.state.currentUser.toString()
+    const favPost =
+    {
+      title: this.state.selectedArticle.title,
+      url: this.state.selectedArticle.url,
+      image_url: this.state.selectedArticle.media[0]['media-metadata'][2].url,
+      user_id: this.state.currentUser.id
+    }
+    let body = JSON.stringify(favPost)
+    fetch('http://localhost:3000/users/2/favorites', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: body,
+    }).then(response => response.json()).then(data => console.log(data))
+  }
+
 
   loadNews = (e) => {
     fetch(mostViewed).then(res => res.json()).then(data =>
@@ -44,7 +84,6 @@ class App extends Component {
   }
 
   showDetail = (e, selected) => {
-    console.log('showDetail', e, selected)
     this.setState({
       showDetail: !this.state.showDetail
     })
@@ -67,57 +106,34 @@ class App extends Component {
       favorites: this.state.favorites.concat(article)
     })
     this.saveFavorite()
+    this.viewFavorites()
   }
-    
 
-    saveFavorite = () => {
-      console.log("saveFavorite", this.state.selectedArticle.title)
-      const favPost = 
-        {title: this.state.selectedArticle.title,
-        url: this.state.selectedArticle.url,
-        image_url: this.state.selectedArticle.media[0]['media-metadata'][2].url,
-        user_id: this.state.currentUser.id}
-      let body = JSON.stringify(favPost)
-      fetch('http://localhost:3000/users/1/favorites', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: body,
-      }).then(response => response.json()).then(data => console.log(data))
-    }
-    
-
-  homeButton = () => {
+   
+  homeButton = (e) => {
     this.setState({
       showDetail: false,
       showFavorites: false,
-      showHome: true
+      showHome: true,
+      showFavDetail: false
     })
   }
 
   goBackToSearch = (e) => {  
     this.setState({
-      showDetail: !this.state.showDetail
-    })
-    this.setState({
-      selectedArticle: null
-    })
-    this.setState({
+      showDetail: !this.state.showDetail,
+      selectedArticle: null,
       showHome: !this.state.showHome
     })
   }
 
   viewFavorites = (e) => {
     this.setState({
-      showFavorites: true
-    })
-    this.setState({
-      showHome: false
-    })
-    this.setState({
+      showFavorites: true,
+      showHome: false,
       showDetail: false
     })
+    this.fetchFavorites()
   }
 
   showLogin = (e) => {
@@ -129,12 +145,9 @@ class App extends Component {
   showPadDetail = (e, article) => {
     console.log("showPadDetail",e, article)
     this.setState({
-      showFavDetail: true
-    })
-    this.setState({
+      showFavDetail: true,
       selectedFavDetail: article
     })
-
   }
 
   render() {
@@ -145,19 +158,14 @@ class App extends Component {
         goHome={this.homeButton} 
         viewFavorites={this.viewFavorites} 
         loadNews={this.loadNews} />
-        {this.state.showFavDetail ? <NewsPad article={this.state.selectedFavDetail} /> : null}
-        {this.state.showLogin ? <Login showHome={this.homeButton} showLogin={this.showLogin} setCurrentUser={this.setCurrentUser}/> : null}
+        {this.state.showFavDetail ? <FavoritedDetail  fetchComments={this.fetchComments} comments={this.state.comments} article={this.state.selectedFavDetail} /> : null}
+        {this.state.currentUser === null ? <Login showHome={this.homeButton} showLogin={this.showLogin} setCurrentUser={this.setCurrentUser} /> : null }
         {this.state.showDetail ? <ArticleDetails article={this.state.selectedArticle} pinArticle={this.pinArticle} goBackToSearch={this.goBackToSearch} /> : null}
         {this.state.showHome ? <SearchResults  showDetail={this.showDetail} articles={this.state.articles} /> : null}
-        {this.state.showFavorites ? <Favorites showDetail={this.showPadDetail} favorites={this.state.favorites}/> : null}
+        {this.state.showFavorites ? <Favorites favorites={this.state.favorites} currentUser={this.state.currentUser} showDetail={this.showPadDetail} /> : null}
       </div>
     );
   }
 }
 
 export default App;
-
-// {
-//   this.state.currentUser === null ?
-//   <SignUpForm setCurrentUser={this.setCurrentUser} /> : null
-// }
