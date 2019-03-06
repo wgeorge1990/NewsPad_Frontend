@@ -1,8 +1,5 @@
 import React, { Component } from 'react'
-import { Input, Menu, Button, Icon, MenuHeader } from 'semantic-ui-react'
-import { black } from 'ansi-colors';
-
-
+import { Input, Menu, Button, Icon} from 'semantic-ui-react'
 
 class NavMenu extends Component {
     render() {
@@ -10,30 +7,31 @@ class NavMenu extends Component {
             <Menu  size="huge">
                 <Menu.Item onClick={(e) => this.props.showLogin(e)}>
                     <Button animated>
-                    <Button.Content visible>Login</Button.Content>
+                    <Button.Content visible>Logout</Button.Content>
                     <Button.Content hidden>
                         <Icon name='user'/>
                     </Button.Content>
                     </Button>
                 </Menu.Item>
-
                     <Menu.Item
-                        onClick={(e) => this.props.viewFavorites(e)} >
+                        onClick={ (e) => this.props.viewFavorites(e) } >
                         Favorites
                        
                     </Menu.Item>
                     <Menu.Item
-                        onClick={(e) => this.props.goHome(e)} >
+                        onClick={ (e) => this.props.goHome(e) } >
                         Home
                     </Menu.Item>
                     <Menu.Item position="right">
                         <Input 
                         icon='search' 
-                        placeholder='Search...' />
+                        placeholder='Search...'
+                        onChange={ (e) => this.props.handleChange(e) }
+                        name="searchTerm" />
                     </Menu.Item>
                     <Menu.Item
                         name='Search Articles' 
-                        onClick={(e) => this.props.loadNews(e)}>
+                        onClick={ (e) => this.props.loadNews(e) }>
                         Load News
                     </Menu.Item>
                 </Menu>

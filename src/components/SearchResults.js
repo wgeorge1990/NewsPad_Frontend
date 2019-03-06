@@ -9,7 +9,7 @@ class SearchResults extends Component {
     }
 
     incrementSection = () => {
-        this.setState({ renderInc: this.state.renderA + 20})
+        this.setState({ renderInc: this.state.renderA + 40})
     }
 
     render(){
