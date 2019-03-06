@@ -48,7 +48,8 @@ class Login extends React.Component {
                         <input 
                         onChange={this.handleOnChange}
                         placeholder='Password'
-                        name="password" />
+                        name="password" 
+                        type="password"/>
                     </Form.Field>
                     <FormButton type='submit' >Sign In
                     </FormButton>

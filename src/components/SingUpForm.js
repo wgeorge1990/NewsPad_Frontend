@@ -81,6 +81,7 @@ class SignUpForm extends React.Component {
                         <input 
                         name="password"
                         placeholder='Password'
+                        type="style"
                         onChange={(e) => this.handleChange(e)} />
                     </Form.Field>
 

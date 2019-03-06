@@ -8,13 +8,10 @@ import FavoritedDetail from './components/FavoritedDetailPage'
 import SignUpForm from './components/SingUpForm'
 import { Container } from 'semantic-ui-react'
 
-const searchTerm = "atlanta"
+
 const key = "mn3dtRxwdGYGdziMyPqLiOgfsQ08gwAb"	
 const mostViewed = `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=${key}`
 const sevenDays = `https://api.nytimes.com/svc/mostpopular/v2/viewed/7.json?api-key=${key}`
-const searchRoute = 
-`https://api.nytimes.com/svc/search/v2/articlesearch.json?
-fq=The New York Timesq=${searchTerm}&api-key=${key}`
 const pickDays = `https://api.nytimes.com/svc/mostpopular/v2/viewed/2.json`
 
 class App extends Component {
@@ -189,8 +186,8 @@ class App extends Component {
   }
 
   render() {
-    let filtered = this.state.articles.filter(article => article.title.includes(this.state.searchTerm) ||
-      article.abstract.includes(this.state.searchTerm))
+    let filtered = this.state.articles.filter(article => article.title.toLowerCase().includes(this.state.searchTerm))
+    console.log(filtered)
     return (
       <div className="App">
 
