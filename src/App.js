@@ -6,10 +6,16 @@ import Favorites from './components/Favorites'
 import Login from './components/Login'
 import FavoritedDetail from './components/FavoritedDetailPage'
 import SignUpForm from './components/SingUpForm'
+import { Container } from 'semantic-ui-react'
 
-
+const searchTerm = "atlanta"
 const key = "mn3dtRxwdGYGdziMyPqLiOgfsQ08gwAb"	
 const mostViewed = `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=${key}`
+const sevenDays = `https://api.nytimes.com/svc/mostpopular/v2/viewed/7.json?api-key=${key}`
+const searchRoute = 
+`https://api.nytimes.com/svc/search/v2/articlesearch.json?
+fq=The New York Timesq=${searchTerm}&api-key=${key}`
+const pickDays = `https://api.nytimes.com/svc/mostpopular/v2/viewed/2.json`
 
 class App extends Component {
   state = {
@@ -23,8 +29,26 @@ class App extends Component {
     showFavDetail: false,
     selectedFavDetail: null,
     currentUser: null,
-    comments: []
+    comments: [],
+    searchTerm: ""
   }
+
+   loadNews = (e) => {
+    fetch(mostViewed).then(res => res.json()).then(data =>
+      this.setState({
+        articles: data.results
+      }))
+  }
+
+  handleChange = (e) => {
+    this.setState({
+      searchTerm: e.target.value.toLowerCase()
+    })
+  }
+
+  // fetchSearchResults = () => {
+  //   fetch(searchRoute).then(res => res.json()).then(console.log)
+  // }
 
   setCurrentUser = (user) => {
     this.setState({
@@ -34,63 +58,63 @@ class App extends Component {
 
   componentDidMount = () => {
     this.loadNews()
-    this.fetchComments()
+    
+    // this.fetchSearchResults()
   }
 
-  fetchFavorites = () => {
-    fetch(`http://localhost:3000/users/2/favorites`)
+  fetchFavorites = (e) => {
+    console.log("fetch favorites", this.state.currentUser[0].id.toString())
+    let userId = this.state.currentUser[0].id.toString()
+    let path = `http://localhost:3000/users/${userId}/favorites`
+    fetch(path)
       .then(res => res.json())
       .then(data =>
         this.setState({
           favorites: data
         }))
+    this.fetchComments()
   }
 
-  fetchComments = () => {
-    fetch(`http://localhost:3000/users/2/favorites/2/comments`)
+  fetchComments = (e) => {
+    let userId = this.state.currentUser[0].id.toString()
+    fetch(`http://localhost:3000/users/${userId}/favorites/2/comments`)
       .then(res => res.json())
       .then(data => this.setState({
         comments: data
-      }))
+      }));
   }
 
   saveFavorite = () => {
    
-    console.log("saveFavorite", this.state.selectedArticle.title)
-    const id = this.state.currentUser.toString()
+    console.log("saveFavorite", this.state.currentUser[0].id.toString())
+    let userId = this.state.currentUser[0].id.toString()
+    let path = `http://localhost:3000/users/${userId}/favorites`
+
     const favPost =
     {
       title: this.state.selectedArticle.title,
       url: this.state.selectedArticle.url,
       image_url: this.state.selectedArticle.media[0]['media-metadata'][2].url,
-      user_id: this.state.currentUser.id
+      user_id: this.state.currentUser[0].id
     }
     let body = JSON.stringify(favPost)
-    fetch('http://localhost:3000/users/2/favorites', {
+    fetch(path, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: body,
-    }).then(response => response.json()).then(data => console.log(data))
-  }
-
-
-  loadNews = (e) => {
-    fetch(mostViewed).then(res => res.json()).then(data =>
-      this.setState({
-        articles: data.results
-      }))
+    }).then(response => response.json()).then(data => this.setState({favorites: this.state.favorites.concat(data)}))
   }
 
   showDetail = (e, selected) => {
     this.setState({
-      showDetail: !this.state.showDetail
+      showDetail: true
     })
     this.setState({
       selectedArticle: selected
     })
-    this.setState({showHome: !this.state.showHome})
+    this.setState({showHome: false})
   }
 
   renderDetails = () => (
@@ -101,10 +125,10 @@ class App extends Component {
   )
 
   pinArticle = (e, article) => {
-    console.log('pin article', e, article, )
-    this.setState({
-      favorites: this.state.favorites.concat(article)
-    })
+    // console.log('pin article', e, article, )
+    // this.setState({
+    //   favorites: this.state.favorites.concat(article)
+    // })
     this.saveFavorite()
     this.viewFavorites()
   }
@@ -131,14 +155,27 @@ class App extends Component {
     this.setState({
       showFavorites: true,
       showHome: false,
-      showDetail: false
+      showDetail: false,
+      showFavDetail: false
     })
-    this.fetchFavorites()
+   this.fetchFavorites(e)
+  }
+
+  logOut = () => {
+    this.setState({
+      currentUser: null,
+      showFavorites: false,
+      showHome: false,
+      showDetail: false,
+      showFavDetail: false,
+      favorites: []
+    })
   }
 
   showLogin = (e) => {
     this.setState({
-      showLogin: !this.state.showLogin
+      showLogin: !this.state.showLogin,
+
     })
   }
   
@@ -146,23 +183,62 @@ class App extends Component {
     console.log("showPadDetail",e, article)
     this.setState({
       showFavDetail: true,
-      selectedFavDetail: article
+      selectedFavDetail: article,
+      showFavorites: false
     })
   }
 
   render() {
+    let filtered = this.state.articles.filter(article => article.title.includes(this.state.searchTerm) ||
+      article.abstract.includes(this.state.searchTerm))
     return (
       <div className="App">
+
+        {this.state.currentUser === null ? null : 
         <Menu 
-        showLogin={this.showLogin} 
+        handleChange={this.handleChange}
+        showLogin={this.logOut} 
         goHome={this.homeButton} 
         viewFavorites={this.viewFavorites} 
-        loadNews={this.loadNews} />
-        {this.state.showFavDetail ? <FavoritedDetail  fetchComments={this.fetchComments} comments={this.state.comments} article={this.state.selectedFavDetail} /> : null}
-        {this.state.currentUser === null ? <Login showHome={this.homeButton} showLogin={this.showLogin} setCurrentUser={this.setCurrentUser} /> : null }
-        {this.state.showDetail ? <ArticleDetails article={this.state.selectedArticle} pinArticle={this.pinArticle} goBackToSearch={this.goBackToSearch} /> : null}
-        {this.state.showHome ? <SearchResults  showDetail={this.showDetail} articles={this.state.articles} /> : null}
-        {this.state.showFavorites ? <Favorites favorites={this.state.favorites} currentUser={this.state.currentUser} showDetail={this.showPadDetail} /> : null}
+        loadNews={this.loadNews} />}
+
+        {this.state.showFavDetail ? 
+        <FavoritedDetail  
+        fetchComments={this.fetchComments} 
+        comments={this.state.comments} 
+        article={this.state.selectedFavDetail} /> : null}
+
+        {this.state.currentUser === null ? 
+        <Login 
+        showHome={this.homeButton} 
+        showLogin={this.showLogin} 
+        setCurrentUser={this.setCurrentUser} /> : null }
+    <Container>
+        {this.state.currentUser === null ? 
+        <SignUpForm
+        setCurrentUser={this.setCurrentUser}
+        homeButton={this.homeButton}
+        /> : null}
+    </Container>
+
+
+        {this.state.showDetail ? 
+        <ArticleDetails 
+        article={this.state.selectedArticle} 
+        pinArticle={this.pinArticle} 
+        goBackToSearch={this.goBackToSearch} /> : null}
+
+        {this.state.showHome ? 
+        <SearchResults  
+        showDetail={this.showDetail} 
+        articles={filtered} /> : null}
+
+        {this.state.showFavorites 
+          ? <Favorites 
+          favorites={this.state.favorites} 
+          currentUser={this.state.currentUser} 
+          showDetail={this.showPadDetail} /> : null}
+
       </div>
     );
   }

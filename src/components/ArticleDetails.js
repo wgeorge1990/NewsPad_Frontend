@@ -1,7 +1,5 @@
 import React from 'react';
-import { Container, Button, Menu, Embed, Segment, MenuItem} from 'semantic-ui-react'
-
-
+import {Button, Menu, MenuItem} from 'semantic-ui-react'
 
 class ArticleDetails extends React.Component {
     render(){

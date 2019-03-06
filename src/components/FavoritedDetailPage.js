@@ -1,5 +1,5 @@
 import React from 'react';
-import { GridColumn, Divider, Container, Grid, Menu, Form, TextArea, MenuItem } from "semantic-ui-react";
+import { GridColumn, Divider, Container, Grid, Menu, Form, TextArea, MenuItem, List } from "semantic-ui-react";
 
 class ArticleAndPad extends React.Component {
     state={
@@ -60,7 +60,11 @@ class ArticleAndPad extends React.Component {
                             onClick={this.resetTextBox}
                             center>Reset</MenuItem>
                         </Menu>
-                        <div><ul> {filtered.map(com => <li>{com.comment}</li>)} </ul> </div>
+                        <div className="ui big list">
+                            {filtered.map(com => 
+                        <List.Item >{com.comment}</List.Item>)}
+                        </div>  
+                    
                     </GridColumn>
                 </Grid>
                 <Divider vertical hidden></Divider>

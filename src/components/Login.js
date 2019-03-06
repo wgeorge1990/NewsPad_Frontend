@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, FormButton } from 'semantic-ui-react';
+import { Form, FormButton, Icon } from 'semantic-ui-react';
 
 class Login extends React.Component {
     state = {
@@ -29,6 +29,7 @@ class Login extends React.Component {
     render(){
         return(
             <div style={{textAlign: 'center'}}>
+                <h1>Sign In to NewsPad <Icon name="newspaper" /></h1>
                 <Form onSubmit={this.handleLogin}>
                     <Form.Field 
                         style={{ display: 'inline-block' }}
@@ -50,8 +51,6 @@ class Login extends React.Component {
                         name="password" />
                     </Form.Field>
                     <FormButton type='submit' >Sign In
-                    </FormButton>
-                    <FormButton onClick={null}> SignUp for NewsPad
                     </FormButton>
                 </Form>
             </div>

@@ -36,6 +36,7 @@ class SignUpForm extends React.Component {
             body: body, })
             .then(response => response.json())
             .then((e, user)=>this.props.setCurrentUser(e, user))
+            this.props.homeButton()
         }
 
 
@@ -44,7 +45,7 @@ class SignUpForm extends React.Component {
         return(
             <div style={{ textAlign: 'center' }}>
                 <Form onSubmit={(e)=> this.signUpUser(e)}>
-                    <h1>Sign Up For News Pad <Icon name="newspaper" /></h1>
+                    <h1>Sign Up For NewsPad <Icon name="newspaper" /></h1>
                     <Form.Field
                         style={{ display: 'inline-block' }}
                         width={3} >
