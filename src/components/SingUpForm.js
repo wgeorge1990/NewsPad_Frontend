@@ -8,7 +8,7 @@ class SignUpForm extends React.Component {
         firstName: "",
         lastName: "",
         newUser: null
-        
+
     }
 
     handleChange = (e) => {
@@ -33,18 +33,19 @@ class SignUpForm extends React.Component {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: body, })
+            body: body
+        })
             .then(response => response.json())
-            .then((e, user)=>this.props.setCurrentUser(e, user))
-            this.props.homeButton()
-        }
+            .then((e, user) => this.props.setCurrentUser(e, user))
+        this.props.homeButton()
+    }
 
-
-
-    render(){
-        return(
-            <div style={{ textAlign: 'center' }}>
-                <Form onSubmit={(e)=> this.signUpUser(e)}>
+    render() {
+        return (
+            <div style={{
+                textAlign: 'center'
+            }}>
+                <Form onSubmit={(e) => this.signUpUser(e)}>
                     <h1>Sign Up For NewsPad <Icon name="newspaper" /></h1>
                     <Form.Field
                         style={{ display: 'inline-block' }}
@@ -68,27 +69,27 @@ class SignUpForm extends React.Component {
                         style={{ display: 'inline-block' }}
                         width={3} >
                         <label> Username </label>
-                        <input 
-                        name="username"
-                        placeholder='Username'
-                        onChange={(e) => this.handleChange(e)}
+                        <input
+                            name="username"
+                            placeholder='Username'
+                            onChange={(e) => this.handleChange(e)}
                         />
                     </Form.Field>
                     <Form.Field
                         style={{ display: 'inline-block' }}
                         width={3} >
                         <label>Password</label>
-                        <input 
-                        name="password"
-                        placeholder='Password'
-                        type="style"
-                        onChange={(e) => this.handleChange(e)} />
+                        <input
+                            name="password"
+                            placeholder='Password'
+                            type="password"
+                            onChange={(e) => this.handleChange(e)} />
                     </Form.Field>
 
                     <Form.Button type='submit'>Sign Up
                     </Form.Button>
                 </Form>
-                </div>
+            </div>
         )
     }
 }

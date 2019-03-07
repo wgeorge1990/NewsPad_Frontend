@@ -1,8 +1,8 @@
 import React from 'react';
-import {Button, Menu, MenuItem} from 'semantic-ui-react'
+import { Button, Menu, MenuItem } from 'semantic-ui-react'
 
 class ArticleDetails extends React.Component {
-    render(){
+    render() {
         return (
             <div >
                 <Menu >
@@ -37,7 +37,7 @@ class ArticleDetails extends React.Component {
                         <Button
                             fluid
                             onClick={(e) => this.props.pinArticle(e, this.props.article)}
-                    >PIN ARTICLE TO FAVORITES
+                        >PIN ARTICLE TO FAVORITES
             </Button>
                     </MenuItem>
                     <MenuItem>
@@ -52,6 +52,6 @@ class ArticleDetails extends React.Component {
             </div>
         )
     }
-   
+
 }
 export default ArticleDetails
