@@ -50,7 +50,7 @@ class App extends Component {
   fetchFavorites = (e) => {
     console.log("fetch favorites", this.state.currentUser[0].id.toString())
     let userId = this.state.currentUser[0].id.toString()
-    let path = `http://localhost:3000/users/${userId}/favorites`
+    let path = `http://damp-meadow-28245.herokuapp.com/users/${userId}/favorites`
     fetch(path)
       .then(res => res.json())
       .then(data => this.setState({ favorites: data }))
@@ -60,7 +60,7 @@ class App extends Component {
   fetchComments = (e) => {
     if (this.state.currentUser !== null) {
       let userId = this.state.currentUser[0].id.toString()
-      fetch(`http://localhost:3000/users/${userId}/favorites/2/comments`)
+      fetch(`http://damp-meadow-28245.herokuapp.com/users/${userId}/favorites/2/comments`)
         .then(res => res.json())
         .then(data => this.setState({ comments: data }))
     }
@@ -68,7 +68,7 @@ class App extends Component {
 
   saveFavorite = () => {
     let userId = this.state.currentUser[0].id.toString()
-    let path = `http://localhost:3000/users/${userId}/favorites`
+    let path = `http://damp-meadow-28245.herokuapp.com/users/${userId}/favorites`
 
     const favPost = {
       title: this.state.selectedArticle.title,
