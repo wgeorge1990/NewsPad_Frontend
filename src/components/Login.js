@@ -16,39 +16,42 @@ class Login extends React.Component {
     handleLogin = (e) => {
         e.preventDefault();
         let file = this.state.searchData
-        file = file.filter(user => user.password.includes(this.state.password) && user.user_name.includes(this.state.username))
+        file = file.filter(user =>
+            user.password.includes(this.state.password) && user.user_name.includes(this.state.username))
         this.props.setCurrentUser(file);
         this.props.showLogin();
-        this.props.showHome()
-     }
+        this.props.showHome();
+    }
 
     handleOnChange = (e) => {
         e.preventDefault();
-        this.setState({ [e.target.name]: e.target.value }) }
+        this.setState({ [e.target.name]: e.target.value })
+    }
 
-    render(){
-        return(
-            <div style={{textAlign: 'center'}}>
+    render() {
+        return (
+            <div style={{ textAlign: 'center' }}>
                 <h1>Sign In to NewsPad <Icon name="newspaper" /></h1>
                 <Form onSubmit={this.handleLogin}>
-                    <Form.Field 
+                    <Form.Field
                         style={{ display: 'inline-block' }}
                         width={2} >
                         <label> Username </label>
-                        <input 
-                        onChange={this.handleOnChange}
-                        placeholder='Username'
-                        name="username" 
+                        <input
+                            onChange={this.handleOnChange}
+                            placeholder='Username'
+                            name="username"
                         />
                     </Form.Field>
-                    <Form.Field 
+                    <Form.Field
                         style={{ display: 'inline-block' }}
                         width={2} >
                         <label>Password</label>
-                        <input 
-                        onChange={this.handleOnChange}
-                        placeholder='Password'
-                        name="password" />
+                        <input
+                            onChange={this.handleOnChange}
+                            placeholder='Password'
+                            name="password"
+                            type="password" />
                     </Form.Field>
                     <FormButton type='submit' >Sign In
                     </FormButton>

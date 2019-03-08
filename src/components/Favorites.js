@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import FavoriteArticleCard from "./FavoriteArticleCard";
 import { Card } from 'semantic-ui-react'
 
-
 class Favorites extends Component {
     
     render() {
@@ -18,7 +17,7 @@ class Favorites extends Component {
                             showDetail={this.props.showDetail} />)}
                 </Card.Group>
             </div>
-        )
+        ) 
     }
 }
 
