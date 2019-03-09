@@ -8,7 +8,7 @@ class Login extends React.Component {
         searchData: []
     }
     componentDidMount = () => {
-        fetch("http://damp-meadow-28245.herokuapp.com/users").then(res => res.json())
+        fetch("https://damp-meadow-28245.herokuapp.com/users").then(res => res.json())
             .then(data => this.setState({
                 searchData: data
             }))

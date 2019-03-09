@@ -19,7 +19,7 @@ class ArticleAndPad extends React.Component {
             favorite_id: this.props.article.id
         }
         let body = JSON.stringify(comment)
-        fetch(`http://damp-meadow-28245.herokuapp.com/users/2/favorites/${this.props.article.id.toString()}/comments`, {
+        fetch(`https://damp-meadow-28245.herokuapp.com/users/2/favorites/${this.props.article.id.toString()}/comments`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
