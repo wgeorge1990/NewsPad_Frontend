@@ -48,7 +48,6 @@ class App extends Component {
   }
 
   fetchFavorites = (e) => {
-    console.log("fetch favorites", this.state.currentUser[0].id.toString())
     let userId = this.state.currentUser[0].id.toString()
     let path = `http://damp-meadow-28245.herokuapp.com/users/${userId}/favorites`
     fetch(path)
