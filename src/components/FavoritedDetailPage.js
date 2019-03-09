@@ -41,6 +41,7 @@ class ArticleAndPad extends React.Component {
                 <Grid columns={2} relaxed='very'>
                     <GridColumn>
                         <iframe
+                            sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
                             src={this.props.article.url}
                             width="880"
                             height="800"
