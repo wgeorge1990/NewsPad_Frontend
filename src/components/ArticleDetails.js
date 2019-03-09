@@ -25,7 +25,7 @@ class ArticleDetails extends React.Component {
                     </MenuItem>
                 </Menu>
                 <iframe
-                    src={`this.props.article.url${target = "_parent"}`}
+                    src={this.props.article.url}
                     width="100%"
                     height="650"
                     scrolling="yes"
