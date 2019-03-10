@@ -145,7 +145,7 @@ class App extends Component {
   }
 
   render() {
-    const { articles, showDetail, selectedArticle, favorites, showFavorites, showHome, showLogin,
+    const { showDetail, selectedArticle, favorites, showFavorites, showHome,
       showFavDetail, selectedFavDetail, currentUser, comments, searchTerm } = this.state
 
     let filtered = this.state.articles.filter(article =>
@@ -200,7 +200,6 @@ class App extends Component {
             currentUser={currentUser}
             showDetail={this.showPadDetail} />
           : null}
-
       </div>
     );
   }
