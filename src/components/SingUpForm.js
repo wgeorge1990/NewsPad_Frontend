@@ -28,7 +28,7 @@ class SignUpForm extends React.Component {
             }
         })
 
-        fetch("https://damp-meadow-28245.herokuapp.com/users", {
+        fetch("http://damp-meadow-28245.herokuapp.com/users", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

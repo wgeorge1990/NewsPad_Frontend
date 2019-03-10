@@ -9,7 +9,7 @@ import SignUpForm from './components/SingUpForm'
 import { Container } from 'semantic-ui-react'
 
 const key = "mn3dtRxwdGYGdziMyPqLiOgfsQ08gwAb"
-const mostViewed = `http://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=${key}`
+const mostViewed = `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=${key}`
 
 class App extends Component {
   state = {
@@ -48,8 +48,7 @@ class App extends Component {
   }
 
   fetchFavorites = (e) => {
-    let userId = this.state.currentUser[0].id.toString()
-    let path = `https://damp-meadow-28245.herokuapp.com/users/${userId}/favorites`
+      let path = `http://damp-meadow-28245.herokuapp.com/users/${this.state.currentUser[0].id.toString()}/favorites`
     fetch(path)
       .then(res => res.json())
       .then(data => this.setState({ favorites: data }))
@@ -59,7 +58,7 @@ class App extends Component {
   fetchComments = (e) => {
     if (this.state.currentUser !== null) {
       let userId = this.state.currentUser[0].id.toString()
-      fetch(`https://damp-meadow-28245.herokuapp.com/users/${userId}/favorites/2/comments`)
+      fetch(`http://damp-meadow-28245.herokuapp.com/users/${userId}/favorites/2/comments`)
         .then(res => res.json())
         .then(data => this.setState({ comments: data }))
     }
@@ -67,7 +66,7 @@ class App extends Component {
 
   saveFavorite = () => {
     let userId = this.state.currentUser[0].id.toString()
-    let path = `https://damp-meadow-28245.herokuapp.com/users/${userId}/favorites`
+    let path = `http://damp-meadow-28245.herokuapp.com/users/${userId}/favorites`
 
     const favPost = {
       title: this.state.selectedArticle.title,
