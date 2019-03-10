@@ -9,7 +9,7 @@ import SignUpForm from './components/SingUpForm'
 import { Container } from 'semantic-ui-react'
 
 const key = "mn3dtRxwdGYGdziMyPqLiOgfsQ08gwAb"
-const mostViewed = `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=${key}`
+const mostViewed = `http://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=${key}`
 
 class App extends Component {
   state = {

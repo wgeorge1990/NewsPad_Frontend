@@ -7,7 +7,6 @@ class ArticleAndPad extends React.Component {
     }
 
     setComment = (e) => {
-        console.log("save Comment inside: Favorite.js")
         this.setState({ comment: e.target.value })
     }
 
