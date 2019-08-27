@@ -8,9 +8,6 @@ import FavoritedDetail from './components/FavoritedDetailPage'
 import SignUpForm from './components/SingUpForm'
 import { Container } from 'semantic-ui-react'
 
-const key = "mn3dtRxwdGYGdziMyPqLiOgfsQ08gwAb"
-const mostViewed = `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=${key}`
-
 class App extends Component {
   state = {
     articles: [],
@@ -28,6 +25,9 @@ class App extends Component {
   }
 
   loadNews = (e) => {
+  const mostViewed = `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=${key}`
+  const key = "mn3dtRxwdGYGdziMyPqLiOgfsQ08gwAb"
+
     fetch(mostViewed)
       .then(res => res.json())
       .then(data => this.setState({ articles: data.results }))
