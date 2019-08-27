@@ -48,7 +48,7 @@ class App extends Component {
   }
 
   fetchFavorites = (e) => {
-    console.log("fetch favorites", this.state.currentUser[0].id.toString())
+    // console.log("fetch favorites", this.state.currentUser[0].id.toString())
     let userId = this.state.currentUser[0].id.toString()
     let path = `http://localhost:3000/users/${userId}/favorites`
     fetch(path)
